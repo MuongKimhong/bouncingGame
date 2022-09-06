@@ -15,6 +15,30 @@ var rightKeyPressed = false; // D key
 var leftKeyPressed = false; // A key
 var gameOver = false;
 var runGameInterval;
+ctx.font = "20px serif";
+var startGameButtonPosition = {
+  textWidth: ctx.measureText("Play Game").width,
+  textX: function () {
+    return canvas.width / 2 - parseInt(this.textWidth) / 2;
+  },
+  textY: canvas.height / 2 + 60,
+  borderX: function () {
+    return canvas.width / 2 - parseInt(this.textWidth) / 2 - 10;
+  },
+  borderY: canvas.height / 2 + 35,
+  borderWidth: function () {
+    return parseInt(this.textWidth) + 20;
+  },
+  borderHeight: 38,
+};
+
+canvas.addEventListener("mousemove", mouseMoveEventHandler);
+
+function mouseMoveEventHandler(event) {
+  var r = canvas.getBoundingClientRect();
+  var x = event.clientX - r.left;
+  var y = event.clientY - r.top;
+}
 
 document.addEventListener("keydown", keyDownEventHandler, false);
 document.addEventListener("keyup", keyUpEventHandler, false);
@@ -81,12 +105,33 @@ function drawGameOverText() {
   );
 }
 
+function drawStartGameButton() {
+  ctx.font = "20px serif";
+  ctx.fillText(
+    "Play Game",
+    startGameButtonPosition.textX(),
+    startGameButtonPosition.textY
+  );
+
+  ctx.beginPath();
+  ctx.lineWidth = "3";
+  ctx.strokeStyle = "#0095DD";
+  ctx.rect(
+    startGameButtonPosition.borderX(),
+    startGameButtonPosition.borderY,
+    startGameButtonPosition.borderWidth(),
+    startGameButtonPosition.borderHeight
+  );
+  ctx.stroke();
+}
+
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   if (gameOver == true) {
     clearInterval(runGameInterval);
     drawGameOverText();
+    drawStartGameButton();
   } else {
     drawPaddle();
     let ball = drawBall(ctx, canvas.width, canvas.height, x, y);
