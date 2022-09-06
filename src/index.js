@@ -40,7 +40,10 @@ canvas.addEventListener("mousedown", (event) => {
   var mouseX = event.clientX - r.left;
   var mouseY = event.clientY - r.top;
 
-  if (checkMouseIsOverStartGameButtonForGameOver(mouseX, mouseY) == true) {
+  if (
+    checkMouseIsOverStartGameButtonForGameOver(mouseX, mouseY) == true ||
+    checkMouseIsOverStartGameButton(mouseX, mouseY) == true
+  ) {
     gameOver = false;
     gameIsInProgress = true;
     runGameInterval = setInterval(draw, intervalTime);
@@ -54,11 +57,22 @@ function mouseMoveEventHandler(event) {
   var mouseX = event.clientX - r.left;
   var mouseY = event.clientY - r.top;
 
-  if (checkMouseIsOverStartGameButtonForGameOver(mouseX, mouseY) == true) {
-    startGameButtonPosition.borderColor = "red";
-  } else startGameButtonPosition.borderColor = "#0095DD";
+  var mouseIsOver = false;
 
-  if (gameIsInProgress == false && gameOver == true) draw();
+  if (gameOver == true && gameIsInProgress == false) {
+    mouseIsOver = checkMouseIsOverStartGameButtonForGameOver(mouseX, mouseY);
+  } else if (gameOver == false && gameIsInProgress == false) {
+    mouseIsOver = checkMouseIsOverStartGameButton(mouseX, mouseY);
+  }
+
+  if (mouseIsOver == true) startGameButtonPosition.borderColor = "red";
+  else startGameButtonPosition.borderColor = "#0095DD";
+
+  if (
+    (gameIsInProgress == false && gameOver == true) ||
+    (gameIsInProgress == false && gameOver == false)
+  )
+    draw();
 }
 
 document.addEventListener("keydown", keyDownEventHandler, false);
@@ -179,6 +193,22 @@ function checkMouseIsOverStartGameButtonForGameOver(mouseX, mouseY) {
         startGameButtonPosition.borderWidth() &&
     mouseY <=
       startGameButtonPosition.borderY + startGameButtonPosition.borderHeight
+  ) {
+    return true;
+  } else return false;
+}
+
+function checkMouseIsOverStartGameButton(mouseX, mouseY) {
+  if (
+    mouseX >= startGameButtonPosition.borderX() &&
+    mouseY >= startGameButtonPosition.borderY - 55 &&
+    mouseX <=
+      startGameButtonPosition.borderX() +
+        startGameButtonPosition.borderWidth() &&
+    mouseY <=
+      startGameButtonPosition.borderY -
+        55 +
+        startGameButtonPosition.borderHeight
   ) {
     return true;
   } else return false;
