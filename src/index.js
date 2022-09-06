@@ -137,6 +137,7 @@ function drawBall() {
   ctx.closePath();
 
   checkBallBouncing();
+  checkBallTouchBricks();
 }
 
 function drawGameOverText() {
@@ -255,7 +256,17 @@ function drawBricks() {
     startX = 0 + columnPaddingLeft;
     startY = startY + 30;
   }
-  console.log(allBricks);
+}
+
+function checkBallTouchBricks() {
+  for (let i=0; i<allBricks.length; i++) {
+    if (x >= allBricks[i].startX && x <= allBricks[i].startX + allBricks[i].width) {
+      if (y <= allBricks[i].startY + allBricks[i].height) {
+        return true;
+      }
+    }
+  }
+  return false;
 }
 
 function draw() {
