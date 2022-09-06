@@ -13,7 +13,7 @@ var paddleY = canvas.height - paddleHeight;
 var intervalTime = 10;
 var rightKeyPressed = false; // D key
 var leftKeyPressed = false; // A key
-var gameOver = true;
+var gameOver = false;
 var runGameInterval = null;
 var gameIsInProgress = false;
 ctx.font = "20px serif";
@@ -45,7 +45,7 @@ canvas.addEventListener("mousedown", (event) => {
     gameIsInProgress = true;
     runGameInterval = setInterval(draw, intervalTime);
   } else {
-    console.log("no");
+    return;
   }
 });
 
@@ -130,7 +130,7 @@ function drawGameOverText() {
   );
 }
 
-function drawStartGameButton() {
+function drawStartGameButtonForGameOver() {
   ctx.font = "20px serif";
   ctx.fillText(
     "Play Game",
@@ -144,6 +144,26 @@ function drawStartGameButton() {
   ctx.rect(
     startGameButtonPosition.borderX(),
     startGameButtonPosition.borderY,
+    startGameButtonPosition.borderWidth(),
+    startGameButtonPosition.borderHeight
+  );
+  ctx.stroke();
+}
+
+function drawStartGameButton() {
+  ctx.font = "20px serif";
+  ctx.fillText(
+    "Play Game",
+    startGameButtonPosition.textX(),
+    startGameButtonPosition.textY - 55
+  );
+
+  ctx.beginPath();
+  ctx.lineWidth = "3";
+  ctx.strokeStyle = startGameButtonPosition.borderColor;
+  ctx.rect(
+    startGameButtonPosition.borderX(),
+    startGameButtonPosition.borderY - 55,
     startGameButtonPosition.borderWidth(),
     startGameButtonPosition.borderHeight
   );
@@ -179,8 +199,12 @@ function draw() {
     drawGameOverText();
     gameIsInProgress = false;
     gameOver = true;
+    drawStartGameButtonForGameOver();
+    if (runGameInterval != null) {
+      clearInterval(runGameInterval);
+    }
+  } else if (gameOver == false && gameIsInProgress == false) {
     drawStartGameButton();
-    if (runGameInterval != null) clearInterval(runGameInterval);
   } else {
     if (gameIsInProgress == true) {
       drawPaddle();
