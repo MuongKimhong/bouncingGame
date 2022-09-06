@@ -71,12 +71,22 @@ function drawBall() {
   checkBallBouncing();
 }
 
+function drawGameOverText() {
+  ctx.font = "48px serif";
+  let textWidth = ctx.measureText("Game Over").width;
+  ctx.fillText(
+    "Game over",
+    canvas.width / 2 - parseInt(textWidth) / 2,
+    canvas.height / 2
+  );
+}
+
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   if (gameOver == true) {
-    alert("Game over");
     clearInterval(runGameInterval);
+    drawGameOverText();
   } else {
     drawPaddle();
     let ball = drawBall(ctx, canvas.width, canvas.height, x, y);
