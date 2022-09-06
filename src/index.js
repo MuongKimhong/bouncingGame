@@ -244,7 +244,6 @@ function drawBricks() {
 
   // loop for rows
   for (let j = 0; j < 3; j++) {
-    console.log(j);
     // loop for columns
     for (let i = 0; i < 3; i++) {
       drawBrick(startX, startY, brickWidth, brickHeight);
