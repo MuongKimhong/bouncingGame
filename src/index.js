@@ -52,14 +52,13 @@ function checkBallBouncing() {
   if (y + dy - ballRadius < 0 || checkBallTouchPaddle() == true) {
     dy = -dy;
   }
+  // game over
+  else if (y + dy + ballRadius > canvas.height) gameOver = true;
 
   // check bouncing right and left edge
   if (x + dx + ballRadius > canvas.width || x + dx - ballRadius < 0) {
     dx = -dx;
   }
-
-  // game over
-  if (y + dy + ballRadius > canvas.height) gameOver = true;
 }
 
 function drawBall() {
