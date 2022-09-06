@@ -40,7 +40,7 @@ canvas.addEventListener("mousedown", (event) => {
   var mouseX = event.clientX - r.left;
   var mouseY = event.clientY - r.top;
 
-  if (checkMouseIsOverStartGameButton(mouseX, mouseY) == true) {
+  if (checkMouseIsOverStartGameButtonForGameOver(mouseX, mouseY) == true) {
     gameOver = false;
     gameIsInProgress = true;
     runGameInterval = setInterval(draw, intervalTime);
@@ -54,7 +54,7 @@ function mouseMoveEventHandler(event) {
   var mouseX = event.clientX - r.left;
   var mouseY = event.clientY - r.top;
 
-  if (checkMouseIsOverStartGameButton(mouseX, mouseY) == true) {
+  if (checkMouseIsOverStartGameButtonForGameOver(mouseX, mouseY) == true) {
     startGameButtonPosition.borderColor = "red";
   } else startGameButtonPosition.borderColor = "#0095DD";
 
@@ -170,7 +170,7 @@ function drawStartGameButton() {
   ctx.stroke();
 }
 
-function checkMouseIsOverStartGameButton(mouseX, mouseY) {
+function checkMouseIsOverStartGameButtonForGameOver(mouseX, mouseY) {
   if (
     mouseX >= startGameButtonPosition.borderX() &&
     mouseY >= startGameButtonPosition.borderY &&
