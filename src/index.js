@@ -33,6 +33,8 @@ var startGameButtonPosition = {
   borderHeight: 38,
   borderColor: "#0095DD",
 };
+var brickColums = 3;
+var brickRows = 3;
 
 canvas.addEventListener("mousemove", mouseMoveEventHandler);
 canvas.addEventListener("mousedown", mouseDownEventHandler);
@@ -223,6 +225,36 @@ function resetBallPosition() {
   dy = -2;
 }
 
+function drawBrick(startX, startY, width, height) {
+  ctx.beginPath();
+  ctx.rect(startX, startY, width, height);
+  ctx.fillStyle = "#0095DD";
+  ctx.fill();
+  ctx.closePath();
+}
+
+function drawBricks() {
+  var columnWidth = canvas.width / 3;
+  var columnPaddingLeft = 5;
+  var columnPaddingRight = 5;
+  var startX = 0 + columnPaddingLeft;
+  var startY = 20;
+  var brickWidth = columnWidth - columnPaddingLeft - columnPaddingRight;
+  var brickHeight = 10;
+
+  // loop for rows
+  for (let j = 0; j < 3; j++) {
+    console.log(j);
+    // loop for columns
+    for (let i = 0; i < 3; i++) {
+      drawBrick(startX, startY, brickWidth, brickHeight);
+      startX = startX + columnWidth;
+    }
+    startX = 0 + columnPaddingLeft;
+    startY = startY + 30;
+  }
+}
+
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = "#0095DD";
@@ -241,6 +273,7 @@ function draw() {
     if (gameIsInProgress == true) {
       drawPaddle();
       drawBall(ctx, canvas.width, canvas.height, x, y);
+      drawBricks();
 
       // check if paddle bounce right
       if (rightKeyPressed == true) {
