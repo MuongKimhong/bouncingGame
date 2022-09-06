@@ -35,7 +35,9 @@ var startGameButtonPosition = {
 };
 
 canvas.addEventListener("mousemove", mouseMoveEventHandler);
-canvas.addEventListener("mousedown", (event) => {
+canvas.addEventListener("mousedown", mouseDownEventHandler);
+
+function mouseDownEventHandler(event) {
   var r = canvas.getBoundingClientRect();
   var mouseX = event.clientX - r.left;
   var mouseY = event.clientY - r.top;
@@ -50,7 +52,7 @@ canvas.addEventListener("mousedown", (event) => {
   } else {
     return;
   }
-});
+}
 
 function mouseMoveEventHandler(event) {
   var r = canvas.getBoundingClientRect();
