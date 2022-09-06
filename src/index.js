@@ -16,6 +16,7 @@ var leftKeyPressed = false; // A key
 var gameOver = false;
 var runGameInterval = null;
 var gameIsInProgress = false;
+var allBricks = [];
 ctx.font = "20px serif";
 var startGameButtonPosition = {
   textWidth: ctx.measureText("Play Game").width,
@@ -233,6 +234,8 @@ function drawBricks() {
   var startY = 20;
   var brickWidth = columnWidth - columnPaddingLeft - columnPaddingRight;
   var brickHeight = 10;
+  var brickStartId = 1;
+  allBricks = [];
 
   // loop for rows
   for (let j = 0; j < 3; j++) {
@@ -240,10 +243,19 @@ function drawBricks() {
     for (let i = 0; i < 3; i++) {
       drawBrick(startX, startY, brickWidth, brickHeight);
       startX = startX + columnWidth;
+      allBricks.push({
+        id: brickStartId,
+        startX: startX,
+        startY: startY,
+        width: brickWidth,
+        height: brickHeight
+      })
+      brickStartId += 1;
     }
     startX = 0 + columnPaddingLeft;
     startY = startY + 30;
   }
+  console.log(allBricks);
 }
 
 function draw() {
