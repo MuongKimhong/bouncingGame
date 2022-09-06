@@ -189,31 +189,23 @@ function drawStartGameButton() {
 }
 
 function checkMouseIsOverStartGameButtonForGameOver(mouseX, mouseY) {
-  if (
-    mouseX >= startGameButtonPosition.borderX() &&
-    mouseY >= startGameButtonPosition.borderY &&
-    mouseX <=
-      startGameButtonPosition.borderX() +
-        startGameButtonPosition.borderWidth() &&
-    mouseY <=
-      startGameButtonPosition.borderY + startGameButtonPosition.borderHeight
-  ) {
+  let x = startGameButtonPosition.borderX();
+  let y = startGameButtonPosition.borderY;
+  let width = startGameButtonPosition.borderWidth();
+  let height = startGameButtonPosition.borderHeight;
+
+  if ( mouseX >= x && mouseY >= y && mouseX <= x + width && mouseY <= y + height) {
     return true;
   } else return false;
 }
 
 function checkMouseIsOverStartGameButton(mouseX, mouseY) {
-  if (
-    mouseX >= startGameButtonPosition.borderX() &&
-    mouseY >= startGameButtonPosition.borderY - 55 &&
-    mouseX <=
-      startGameButtonPosition.borderX() +
-        startGameButtonPosition.borderWidth() &&
-    mouseY <=
-      startGameButtonPosition.borderY -
-        55 +
-        startGameButtonPosition.borderHeight
-  ) {
+  let x = startGameButtonPosition.borderX();
+  let y = startGameButtonPosition.borderY - 55;
+  let width = startGameButtonPosition.borderWidth();
+  let height = startGameButtonPosition.borderHeight;
+
+  if ( mouseX >= x && mouseY >= y && mouseX <= x + width && mouseY <= y + height) {
     return true;
   } else return false;
 }
@@ -263,6 +255,7 @@ function draw() {
     gameIsInProgress = false;
     gameOver = true;
     drawStartGameButtonForGameOver();
+
     if (runGameInterval != null) {
       clearInterval(runGameInterval);
     }
