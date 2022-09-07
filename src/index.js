@@ -1,22 +1,30 @@
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 
+// ball
 var x = canvas.width / 2;
 var y = canvas.height / 2;
 var ballRadius = 10;
 var dx = 2;
 var dy = -2;
+
+// paddle
 var paddleHeight = 10;
 var paddleWidth = 75;
 var paddleX = canvas.width / paddleWidth / 2;
 var paddleY = canvas.height - paddleHeight;
+
 var intervalTime = 10;
+
 var rightKeyPressed = false; // D key
 var leftKeyPressed = false; // A key
+
 var gameOver = false;
 var runGameInterval = null;
 var gameIsInProgress = false;
+
 var allBricks = [];
+
 ctx.font = "20px serif";
 var startGameButtonPosition = {
   textWidth: ctx.measureText("Play Game").width,
