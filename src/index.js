@@ -196,7 +196,12 @@ function checkMouseIsOverStartGameButtonForGameOver(mouseX, mouseY) {
   let width = startGameButtonPosition.borderWidth();
   let height = startGameButtonPosition.borderHeight;
 
-  if ( mouseX >= x && mouseY >= y && mouseX <= x + width && mouseY <= y + height) {
+  if (
+    mouseX >= x &&
+    mouseY >= y &&
+    mouseX <= x + width &&
+    mouseY <= y + height
+  ) {
     return true;
   } else return false;
 }
@@ -207,7 +212,12 @@ function checkMouseIsOverStartGameButton(mouseX, mouseY) {
   let width = startGameButtonPosition.borderWidth();
   let height = startGameButtonPosition.borderHeight;
 
-  if ( mouseX >= x && mouseY >= y && mouseX <= x + width && mouseY <= y + height) {
+  if (
+    mouseX >= x &&
+    mouseY >= y &&
+    mouseX <= x + width &&
+    mouseY <= y + height
+  ) {
     return true;
   } else return false;
 }
@@ -219,19 +229,19 @@ function resetBallPosition() {
   dy = -2;
 }
 
-function drawBrick(startX, startY, width, height) {
+function drawBrick(x, y, width, height) {
   ctx.beginPath();
-  ctx.rect(startX, startY, width, height);
+  ctx.rect(x, y, width, height);
   ctx.fillStyle = "#0095DD";
   ctx.fill();
   ctx.closePath();
 }
 
-function drawBricks() {
+function defineAllBricksPosition() {
   var columnWidth = canvas.width / 3;
   var columnPaddingLeft = 5;
   var columnPaddingRight = 5;
-  var startX = 0 + columnPaddingLeft;
+  var startX = columnPaddingLeft;
   var startY = 20;
   var brickWidth = columnWidth - columnPaddingLeft - columnPaddingRight;
   var brickHeight = 10;
@@ -242,31 +252,33 @@ function drawBricks() {
   for (let j = 0; j < 3; j++) {
     // loop for columns
     for (let i = 0; i < 3; i++) {
-      drawBrick(startX, startY, brickWidth, brickHeight);
-      startX = startX + columnWidth;
       allBricks.push({
         id: brickStartId,
         startX: startX,
         startY: startY,
         width: brickWidth,
-        height: brickHeight
-      })
+        height: brickHeight,
+      });
+      startX = startX + columnWidth;
       brickStartId += 1;
     }
-    startX = 0 + columnPaddingLeft;
+    startX = columnPaddingLeft;
     startY = startY + 30;
   }
 }
 
 function checkBallTouchBricks() {
-  for (let i=0; i<allBricks.length; i++) {
-    if (x >= allBricks[i].startX && x <= allBricks[i].startX + allBricks[i].width) {
+  for (let i = 0; i < allBricks.length; i++) {
+    if (
+      x >= allBricks[i].startX &&
+      x <= allBricks[i].startX + allBricks[i].width
+    ) {
       if (y <= allBricks[i].startY + allBricks[i].height) {
-        return true;
+        return allBricks[i];
       }
     }
   }
-  return false;
+  return null;
 }
 
 function draw() {
@@ -288,7 +300,17 @@ function draw() {
     if (gameIsInProgress == true) {
       drawPaddle();
       drawBall(ctx, canvas.width, canvas.height, x, y);
-      drawBricks();
+
+      // draw bricks
+      for (let i = 0; i < allBricks.length; i++) {
+        console.log(allBricks[i]);
+        drawBrick(
+          allBricks[i].startX,
+          allBricks[i].startY,
+          allBricks[i].width,
+          allBricks[i].height
+        );
+      }
 
       // check if paddle bounce right
       if (rightKeyPressed == true) {
@@ -312,3 +334,4 @@ function draw() {
 }
 
 draw();
+defineAllBricksPosition();
