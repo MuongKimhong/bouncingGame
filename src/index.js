@@ -51,7 +51,9 @@ function mouseDownEventHandler(event) {
   ) {
     gameOver = false;
     gameIsInProgress = true;
+    document.getElementById("score-text").innerHTML = "Score 0";
     defineAllBricksPosition();
+    // draw();
     runGameInterval = setInterval(draw, intervalTime);
   } else {
     return;
@@ -319,6 +321,9 @@ function draw() {
           if (brick.id == allBricks[i].id) {
             allBricks.splice(i, 1);
             dy = -dy;
+            document.getElementById("score-text").innerHTML = `Score: ${
+              9 - allBricks.length
+            }`;
             break;
           }
         }
