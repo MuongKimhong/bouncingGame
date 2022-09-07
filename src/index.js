@@ -51,6 +51,7 @@ function mouseDownEventHandler(event) {
   ) {
     gameOver = false;
     gameIsInProgress = true;
+    defineAllBricksPosition();
     runGameInterval = setInterval(draw, intervalTime);
   } else {
     return;
