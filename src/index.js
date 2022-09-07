@@ -311,7 +311,7 @@ function draw() {
         );
       }
 
-      // remove brick from screen if ball touch
+      // remove brick from screen if ball touch and bounce ball back
       let brick = checkBallTouchBricks();
       if (brick != null) {
         for (let i = 0; i < allBricks.length; i++) {
