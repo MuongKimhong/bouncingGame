@@ -303,13 +303,21 @@ function draw() {
 
       // draw bricks
       for (let i = 0; i < allBricks.length; i++) {
-        console.log(allBricks[i]);
         drawBrick(
           allBricks[i].startX,
           allBricks[i].startY,
           allBricks[i].width,
           allBricks[i].height
         );
+      }
+      let brick = checkBallTouchBricks();
+      if (brick != null) {
+        for (let i = 0; i < allBricks.length; i++) {
+          if (brick.id == allBricks[i].id) {
+            allBricks.splice(i, 1);
+            break;
+          }
+        }
       }
 
       // check if paddle bounce right
