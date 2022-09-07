@@ -310,11 +310,14 @@ function draw() {
           allBricks[i].height
         );
       }
+
+      // remove brick from screen if ball touch
       let brick = checkBallTouchBricks();
       if (brick != null) {
         for (let i = 0; i < allBricks.length; i++) {
           if (brick.id == allBricks[i].id) {
             allBricks.splice(i, 1);
+            dy = -dy;
             break;
           }
         }
